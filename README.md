@@ -7,14 +7,14 @@
 * Meta balls  (Viggo)
 * Bouncing balls 
 * Radial rainbows 
-* Rounded rectangles
+* Rounded rectangles (Sara)
 * Boolean operations
 * Future splash (Aasa)
 * Smoothing
 * Spiral Raster (Kind of)
-* Division Raster (You have to load your own picture to the browser)
+* Division Raster (You have to load your own picture to the visual studio code folder)
 * Q-bertify (Drag your own picture to the browser)
-* Hit testing
+* Hit testing (Sara)
 * Path simplification (Vera)
 
 	
