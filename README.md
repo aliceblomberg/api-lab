@@ -4,7 +4,7 @@
 
 * Chain (Viggo)
 * Candy crash
-* Meta balls
+* Meta balls  (Viggo)
 * Bouncing balls 
 * Radial rainbows 
 * Rounded rectangles
