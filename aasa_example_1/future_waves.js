@@ -1,6 +1,5 @@
-// Code ported to Paper.js from http://the389.com/9/1/
-// with permission.
 
+// Default values
 var values = {
 	friction: 0.8,
 	timeStep: 0.01,
@@ -8,11 +7,14 @@ var values = {
 	mass: 2,
 	count: 0
 };
+// Inverted mass = 1/mass
 values.invMass = 1 / values.mass;
 
 var path, springs;
 var size = view.size * [1.2, 1];
 
+
+// Different way of building a class, what is mamb?
 var Spring = function(a, b, strength, restLength) {
 	this.a = a;
 	this.b = b;
@@ -20,6 +22,10 @@ var Spring = function(a, b, strength, restLength) {
 	this.strength = strength ? strength : 0.55;
 	this.mamb = values.invMass * values.invMass;
 };
+
+
+//delta = difference. what happens when you call update, 
+//calculating and applying difference to a and b. Animation. At every frame.
 
 Spring.prototype.update = function() {
 	var delta = this.b - this.a;
@@ -34,11 +40,15 @@ Spring.prototype.update = function() {
 };
 
 
+// Path from paper.js? Creating new path and passing new data in.
 function createPath(strength) {
 	var path = new Path({
 		fillColor: 'black'
 	});
+
+	// The loop will run 15 times
 	springs = [];
+	// creates points on the path
 	for (var i = 0; i <= values.amount; i++) {
 		var segment = path.add(new Point(i / values.amount, 0.5) * size);
 		var point = segment.point;
@@ -57,6 +67,7 @@ function createPath(strength) {
 	return path;
 }
 
+// delete old path and create new one
 function onResize() {
 	if (path)
 		path.remove();
@@ -64,6 +75,8 @@ function onResize() {
 	path = createPath(0.1);
 }
 
+// when the mouse moves, apply greatest change to the closest point to cursor
+//smaller changes to the points to the left and right.
 function onMouseMove(event) {
 	var location = path.getNearestLocation(event.point);
 	var segment = location.segment;
@@ -82,11 +95,12 @@ function onMouseMove(event) {
 		}
 	}
 }
-
+//look up, binding functions paper.js. Runs update wave function with the path.
 function onFrame(event) {
 	updateWave(path);
 }
-
+// updates path with new points and smooths it 
+//('continuous' smooths the path item by adjusting its curve handles)
 function updateWave(path) {
 	var force = 1 - values.friction * values.timeStep * values.timeStep;
 	for (var i = 0, l = path.segments.length; i < l; i++) {
@@ -102,6 +116,7 @@ function updateWave(path) {
 	path.smooth({ type: 'continuous' });
 }
 
+// !path(inverted). True or false, filled path or not. Space key exposes bezier curve.
 function onKeyDown(event) {
 	if (event.key == 'space') {
 		path.fullySelected = !path.fullySelected;
