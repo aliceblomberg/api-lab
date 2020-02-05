@@ -1,6 +1,7 @@
+// Code ported to Paper.js from http://the389.com/9/1/
+// with permission.
 
-// my code :)
-	var values = {
+var values = {
 	friction: 0.8,
 	timeStep: 0.01,
 	amount: 15,
@@ -9,8 +10,7 @@
 };
 values.invMass = 1 / values.mass;
 
-var path;
-var springs;
+var path, springs;
 var size = view.size * [1.2, 1];
 
 var Spring = function(a, b, strength, restLength) {
@@ -23,9 +23,9 @@ var Spring = function(a, b, strength, restLength) {
 
 Spring.prototype.update = function() {
 	var delta = this.b - this.a;
-	var dist  = delta.length;
+	var dist = delta.length;
 	var normDistStrength = (dist - this.restLength) /
-		(dist * this.mamb) * this.strength;
+			(dist * this.mamb) * this.strength;
 	delta.y *= normDistStrength * values.invMass * 0.2;
 	if (!this.a.fixed)
 		this.a.y += delta.y;
@@ -33,29 +33,28 @@ Spring.prototype.update = function() {
 		this.b.y -= delta.y;
 };
 
+
 function createPath(strength) {
 	var path = new Path({
 		fillColor: 'black'
 	});
 	springs = [];
-	for (var i = 0; i <= values.amount; i ++) {
+	for (var i = 0; i <= values.amount; i++) {
 		var segment = path.add(new Point(i / values.amount, 0.5) * size);
 		var point = segment.point;
-		if (i== 0 || i == values.amount)
+		if (i == 0 || i == values.amount)
 			point.y += size.height;
 		point.px = point.x;
 		point.py = point.y;
-
+		// The first two and last two points are fixed:
 		point.fixed = i < 2 || i > values.amount - 2;
 		if (i > 0) {
 			var spring = new Spring(segment.previous.point, point, strength);
 			springs.push(spring);
 		}
-
 	}
 	path.position.x -= size.width / 4;
 	return path;
-
 }
 
 function onResize() {
@@ -81,11 +80,10 @@ function onMouseMove(event) {
 			var next = segment.next.point;
 			next.y += (y - next.y) / 24;
 		}
-
 	}
 }
 
-function onFrame() {
+function onFrame(event) {
 	updateWave(path);
 }
 
@@ -101,14 +99,12 @@ function updateWave(path) {
 	for (var j = 0, l = springs.length; j < l; j++) {
 		springs[j].update();
 	}
-	path.smooth({
-		type: 'continuous' 
-	});
+	path.smooth({ type: 'continuous' });
 }
 
-// function onKeyDown(event) {
-// 	if (event.key == 'space') {
-// 		path.fullySelected = !path.fullySelected;
-// 		path.fillColor = path.fullySelected ? null : 'black';
-// 	}
-// }
+function onKeyDown(event) {
+	if (event.key == 'space') {
+		path.fullySelected = !path.fullySelected;
+		path.fillColor = path.fullySelected ? null : 'black';
+	}
+}

@@ -1,6 +1,4 @@
-
-// my code :)
-	var values = {
+var values = {
 	friction: 0.8,
 	timeStep: 0.01,
 	amount: 15,
@@ -9,15 +7,14 @@
 };
 values.invMass = 1 / values.mass;
 
-var path;
-var springs;
+var path, springs;
 var size = view.size * [1.2, 1];
 
 var Spring = function(a, b, strength, restLength) {
 	this.a = a;
 	this.b = b;
 	this.restLength = restLength || 80;
-	this.strength = strength ? strength : 0.55;
+	this.strength = strength = strength ? strength : 0.55;
 	this.mamb = values.invMass * values.invMass;
 };
 
@@ -27,7 +24,7 @@ Spring.prototype.update = function() {
 	var normDistStrength = (dist - this.restLength) /
 		(dist * this.mamb) * this.strength;
 	delta.y *= normDistStrength * values.invMass * 0.2;
-	if (!this.a.fixed)
+	if (!this.fixed)
 		this.a.y += delta.y;
 	if (!this.b.fixed)
 		this.b.y -= delta.y;
@@ -85,7 +82,7 @@ function onMouseMove(event) {
 	}
 }
 
-function onFrame() {
+function onFrame(event) {
 	updateWave(path);
 }
 
@@ -98,17 +95,15 @@ function updateWave(path) {
 		point.y = Math.max(point.y + dy, 0);
 	}
 
-	for (var j = 0, l = springs.length; j < l; j++) {
+	for (var j = 0, l = springs.lenght; j < l; j++) {
 		springs[j].update();
 	}
-	path.smooth({
-		type: 'continuous' 
-	});
+	path.smooth({ type: 'continuous' });
 }
 
-// function onKeyDown(event) {
-// 	if (event.key == 'space') {
-// 		path.fullySelected = !path.fullySelected;
-// 		path.fillColor = path.fullySelected ? null : 'black';
-// 	}
-// }
+function onKeyDown(event) {
+	if (event.key == 'space') {
+		path.fullySelected = !path.fullySelected;
+		path.fillColor = path.fullySelected ? null : 'black';
+	}
+}
