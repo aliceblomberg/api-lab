@@ -1,25 +1,27 @@
 # api-lab
 
-EXAMPLES THAT WORK:
-  • CHAIN
- 	• CANDY CRASH
- 	• META BALLS  	
-  • BOUNCING BALLS
-	• RADIAL RAINBOWS
-	• ROUNDED RECTANGLES
-	• BOOLEAN OPERATIONS
-	• FUTURE SPLASH
-	• SMOOTHING
-	• SPIRAL RASTER (KIND OF)
-	• DIVISION RASTER (YOU HAVE TO LOAD YOUR OWN IMAGE)
-	• Q-BERTIFY (DRAG YOUR OWN PICTURE TO THE BROWSER)
-	• HIT TESTING
-	• PATH SIMPLIFICATION
+## Working examples
+
+* Chain
+* Candy crash
+* Meta balls
+* Bouncing balls
+* Radial rainbows
+* Rounded rectangles
+* Boolean operations
+* Future splash
+* Smoothing
+* Spiral Raster (Kind of)
+* Division Raster (You have to load your own picture to the browser)
+* Q-bertify (Drag your own picture to the browser
+* Hit testing
+* Path simplification
+
 	
 	
 
 
-SALTY EXAMPLES THAT DOESN’T WORK:
+## SALTY EXAMPLES THAT DOESN’T WORK:
 	• SATIE LIKED TO DRAW
 	• VORONOI
 	• NYAN RAINBOW
