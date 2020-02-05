@@ -2,18 +2,18 @@
 
 ## Working examples
 
-* Chain
+* Chain (viggo)
 * Candy crash
 * Meta balls
-* Bouncing balls
-* Radial rainbows
+* Bouncing balls 
+* Radial rainbows 
 * Rounded rectangles
 * Boolean operations
-* Future splash
+* Future splash (aasa)
 * Smoothing
 * Spiral Raster (Kind of)
 * Division Raster (You have to load your own picture to the browser)
-* Q-bertify (Drag your own picture to the browser
+* Q-bertify (Drag your own picture to the browser)
 * Hit testing
 * Path simplification
 
