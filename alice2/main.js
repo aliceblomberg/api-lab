@@ -1,16 +1,32 @@
 var mousePos = view.center + [view.bounds.width / 3, 100];
-var position = view.center;
+var framePosition = view.center;
 
 function onFrame(event) {
-	position += (mousePos - position) / 10;
-	var vector = (view.center - position) / 10;
+	framePosition += (mousePos - framePosition) / 10;
+	var vector = (view.center - framePosition) / 10;
 	moveStars(vector * 3);
-	moveRainbow(vector, event);
+	// moveRainbow(vector, event);
 }
 
 function onMouseMove(event) {
 	mousePos = event.point;
 }
+
+var starObject = new Path.Circle({
+	center: [0, 0],
+	radiuis: 5,
+	fillColor: "white",
+	strokeColor: "black"
+});
+
+var starSymbol = new SymbolDefinition(starObject);
+
+var maxStars = 50;
+
+for (var i = 0; i < maxStars; i++) {
+	starSymbol.place(Point.random() * view.size);
+}
+
 
 var moveStars = new function() {
 	// The amount of symbol we want to place;
@@ -35,7 +51,7 @@ var moveStars = new function() {
 		placed.data = {
 			vector: new Point({
 				angle: Math.random() * 360,
-				length : (i / count) * Math.random() / 5
+				length: (i / count) * Math.random() / 5
 			})
 		};
 	}
@@ -77,75 +93,75 @@ var moveStars = new function() {
 	};
 };
 
-var moveRainbow = new function() {
-	var paths = [];
-	var colors = ['red', 'orange', 'yellow', 'lime', 'blue', 'purple'];
-	for (var i = 0; i < colors.length; i++) {
-		var path = new Path({
-			fillColor: colors[i]
-		});
-		paths.push(path);
-	}
+// var moveRainbow = new function() {
+// 	var paths = [];
+// 	var colors = ['red', 'orange', 'yellow', 'lime', 'blue', 'purple'];
+// 	for (var i = 0; i < colors.length; i++) {
+// 		var path = new Path({
+// 			fillColor: colors[i]
+// 		});
+// 		paths.push(path);
+// 	}
 
-	var group = new Group(paths);
-	var headGroup;
-	var eyePosition = new Point();
-	var eyeFollow = (Point.random() - 0.5);
-	var blinkTime = 200;
-	function createHead(vector, count) {
-		var eyeVector = (eyePosition - eyeFollow);
-		eyePosition -= eyeVector / 4;
-		if (eyeVector.length < 0.00001)
-			eyeFollow = (Point.random() - 0.5);
-		if (headGroup)
-			headGroup.remove();
-		var top = paths[0].lastSegment.point;
-		var bottom = paths[paths.length - 1].firstSegment.point;
-		var radius = (bottom - top).length / 2;
-		var circle = new Path.Circle({
-			center: top + (bottom - top) / 2,
-			radius: radius,
-			fillColor: 'black'
-		});
-		circle.scale(vector.length / 100, 1);
-		circle.rotate(vector.angle, circle.center);
+// 	var group = new Group(paths);
+// 	var headGroup;
+// 	var eyePosition = new Point();
+// 	var eyeFollow = (Point.random() - 0.5);
+// 	var blinkTime = 200;
+// 	function createHead(vector, count) {
+// 		var eyeVector = (eyePosition - eyeFollow);
+// 		eyePosition -= eyeVector / 4;
+// 		if (eyeVector.length < 0.00001)
+// 			eyeFollow = (Point.random() - 0.5);
+// 		if (headGroup)
+// 			headGroup.remove();
+// 		var top = paths[0].lastSegment.point;
+// 		var bottom = paths[paths.length - 1].firstSegment.point;
+// 		var radius = (bottom - top).length / 2;
+// 		var circle = new Path.Circle({
+// 			center: top + (bottom - top) / 2,
+// 			radius: radius,
+// 			fillColor: 'black'
+// 		});
+// 		circle.scale(vector.length / 100, 1);
+// 		circle.rotate(vector.angle, circle.center);
 
-		innerCircle = circle.clone();
-		innerCircle.scale(0.5);
-		innerCircle.fillColor = (count % blinkTime < 3)
-			|| (count % (blinkTime + 5) < 3) ? 'black' : 'white';
-		if (count % (blinkTime + 40) == 0)
-			blinkTime = Math.round(Math.random() * 40) + 200;
-		var eye = circle.clone();
-		eye.position += eyePosition * radius;
-		eye.scale(0.15, innerCircle.position);
-		eye.fillColor = 'black';
-		headGroup = new Group(circle, innerCircle, eye);
-	}
+// 		innerCircle = circle.clone();
+// 		innerCircle.scale(0.5);
+// 		innerCircle.fillColor = (count % blinkTime < 3)
+// 			|| (count % (blinkTime + 5) < 3) ? 'black' : 'white';
+// 		if (count % (blinkTime + 40) == 0)
+// 			blinkTime = Math.round(Math.random() * 40) + 200;
+// 		var eye = circle.clone();
+// 		eye.position += eyePosition * radius;
+// 		eye.scale(0.15, innerCircle.position);
+// 		eye.fillColor = 'black';
+// 		headGroup = new Group(circle, innerCircle, eye);
+// 	}
 
-	return function(vector, event) {
-		var vector = (view.center - position) / 10;
+// 	return function(vector, event) {
+// 		var vector = (view.center - framePosition) / 10;
 
-		if (vector.length < 5)
-			vector.length = 5;
-		group.translate(vector);
-		var rotated = vector.rotate(90);
-		var middle = paths.length / 2;
-		for (var j = 0; j < paths.length; j++) {
-			var path = paths[j];
-			var unitLength = vector.length * (2 + Math.sin(event.count / 10)) / 2;
-			var length = (j - middle) * unitLength;  //+ nyanSwing;
-			var top = view.center + rotated.normalize(length);
-			var bottom = view.center + rotated.normalize(length + unitLength);
-			path.add(top);
-			path.insert(0, bottom);
-			if (path.segments.length > 200) {
-				var index = Math.round(path.segments.length / 2);
-				path.segments[index].remove();
-				path.segments[index - 1].remove();
-			}
-			path.smooth();
-		}
-		createHead(vector, event.count);
-	}
-}
+// 		if (vector.length < 5)
+// 			vector.length = 5;
+// 		group.translate(vector);
+// 		var rotated = vector.rotate(90);
+// 		var middle = paths.length / 2;
+// 		for (var j = 0; j < paths.length; j++) {
+// 			var path = paths[j];
+// 			var unitLength = vector.length * (2 + Math.sin(event.count / 10)) / 2;
+// 			var length = (j - middle) * unitLength;  //+ nyanSwing;
+// 			var top = view.center + rotated.normalize(length);
+// 			var bottom = view.center + rotated.normalize(length + unitLength);
+// 			path.add(top);
+// 			path.insert(0, bottom);
+// 			if (path.segments.length > 200) {
+// 				var index = Math.round(path.segments.length / 2);
+// 				path.segments[index].remove();
+// 				path.segments[index - 1].remove();
+// 			}
+// 			path.smooth();
+// 		}
+// 		createHead(vector, event.count);
+// 	}
+// }
