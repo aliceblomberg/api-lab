@@ -4,11 +4,20 @@
 <head>
     <!-- Load the Paper.js library -->
     <script type="text/javascript" src="../paper/dist/paper-full.js"></script>
+    <style>
+        * {
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        canvas {
+            height: 100%;
+            width: 100%;
+        }
 </head>
 
 <body>
     <canvas id="myCanvas" style="border:1px solid #000000;" width="1000" height="600"></canvas>
-    <script type="text/paperscript" src="future_waves.js" data-paper-canvas="myCanvas"></script>
+    <script type="text/paperscript" src="main.js" data-paper-canvas="myCanvas"></script>
 </body>
 
 </html>
