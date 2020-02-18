@@ -21,6 +21,7 @@ var path = new Path({
     strokeCap: "round"
 });
 
+//sets starting point to center divided by 10
 var start = view.center / [10, 1];
 for (var i = 0; i < points; i++)
     path.add(start + new Point(i * length, 0));
@@ -37,10 +38,9 @@ function onMouseMove (event) {
     path.smooth({ type: "continuous" });
 }  
 
+//changes color when mouse is down using event
 function onMouseDown(event) {
     path.fullySelected = false;
     path.closed = false;
     path.strokeColor = getRandomColor();
 }
-
-
