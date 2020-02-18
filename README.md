@@ -7,6 +7,8 @@ This project was made as an assignment for the Prototyping course in Interaction
 > Paper.js is an open source vector graphics scripting framework that runs on top of HTML5 Canvas. It is developed by Jürg Lehni & Joonathan Puckey, and distributed under the permissive MIT License. 
 >> <cite><a href="http://paperjs.org/about/"> Paper.js About Page</a></cite>
 
+Bad naming practice in examples, making it difficult to work with and understand! 
+
 ## Purpose/"Why the project is useful"?
 
 1. What is the project exploring?
