@@ -1,7 +1,10 @@
-//Create a raster item: 
+//Create a raster item by adding a photo: 
 var raster = new Raster ('photo.jpg');
 var loaded = false; 
 
+//When the page is loaded, the raster item is reverted
+//The function "onResize" is called 
+//
 raster.on('load', function() {
     loaded = true; 
     onResize();
@@ -14,7 +17,7 @@ var lastPos = view.center;
 function moveHandler(event) {
     if (!loaded)
     return; 
-    if (lastPos.getDistance(event.point) < 10)
+    if (lastPos.getDistance(event.point) < 20)
     return; 
     lastPos = event.point; 
 
@@ -44,6 +47,7 @@ function moveHandler(event) {
 
     this.remove();
 }
+
 
 function onResize(event) {
     if (!loaded)

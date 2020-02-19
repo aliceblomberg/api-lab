@@ -1,21 +1,24 @@
 var path; 
 
+//This is for the instructional text above the canvas
 var textItem = new PointText({
     content: 'Click and drag to draw a line.',
-    point: new Point (20, 30),
-    fillColor: 'black',
+    point: new Point (100, 30),
+    fillColor: 'pink',
 });
 
+//this event listener listens for the move pressing on the canvas
+//it deselects any previously selected path  
 function onMouseDown(event) {
-    //If we produced a path before, deselect it:
     if (path) {
         path.selected = false;
     }
 
-    //Create a new path and set its stroke color to black: 
+    //Create a new path with the Point object 
+    // And changes its stroke color to pink: 
     path = new Path({
         segments: [event.point],
-        strokeColor: 'black', 
+        strokeColor: 'pink', 
         //Select the path, so we can see its segment points:
         fullySelected: true
     });
@@ -38,9 +41,15 @@ function onMouseDown(event) {
         //When the mouse is released, simplify it:
         path.simplify(10);
 
-        //Select the path, so we can see its segments:
+        //The path is selected and highlighted
+        // so we can see its segments:
         path.fullySelected = true; 
 
+
+
+        //Last is the calculation of the segments in the new path
+        //This will be indicated as the  percentage of line segments that were saved
+        //and used in the simplification 
         var newSegmentCount = path.segments.length; 
         var difference = segmentCount - newSegmentCount;
         var percentage = 100 - Math.round(newSegmentCount / segmentCount * 100); 
