@@ -1,21 +1,13 @@
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-
 project.currentStyle = {
-    fillColor: getRandomColor()
+    fillColor: "black"
 };
 
+//sets positions for the static balls 
 var ballPositions = [[255, 129], [610, 73], [486, 363],
 [117, 459], [484, 726], [843, 306], [789, 615], [1049, 82],
 [1292, 428], [1117, 733], [1352, 86], [92, 798]];
 
+//creates a new circlePath for every index position in BallPositions (draws the static balls)
 var handle_len_rate = 2.4;
 var circlePaths = [];
 var radius = 50;
@@ -27,17 +19,21 @@ for (var i = 0, l = ballPositions.length; i < l; i++) {
     circlePaths.push(circlePath);
 }
 
+//declares the large, interactive circle
 var largeCircle = new Path.Circle({
     center: [676, 433],
     radius: 100
 });
+
 circlePaths.push(largeCircle);
 
+// the large circle moves when the mouseMove event is triggered
 function onMouseMove(event) {
     largeCircle.position = event.point;
     generateConnections(circlePaths);
 }
 
+//creates the sticky stuff between the circles
 var connections = new Group();
 function generateConnections(paths) {
     //remove the last connection paths:
@@ -81,6 +77,7 @@ function metaball(ball1, ball2, v, handle_len_rate, maxDistance) {
         u2 = 0;
     }
 
+    //bunch of math stuff I don't understand
     var angle1 = (center2 - center1).getAngleInRadians();
     var angle2 = Math.acos((radius1 - radius2) / d);
     var angle1a = angle1 + u1 + (angle2 - u1) * v;
@@ -108,6 +105,7 @@ function metaball(ball1, ball2, v, handle_len_rate, maxDistance) {
         style: ball1.style,
         closed: true
     });
+    
     var segments = path.segments;
     segments[0].handleOut = getVector(angle1a - pi2, radius1);
     segments[1].handleIn = getVector(angle2a + pi2, radius2);

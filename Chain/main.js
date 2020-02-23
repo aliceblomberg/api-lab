@@ -1,3 +1,4 @@
+//create random color
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -13,12 +14,14 @@ var points = 50;
 //the distance between the points
 var length = 15;
 
+//creates an instance of Path(an object)
 var path = new Path({
     strokeColor: getRandomColor(),
-    strokeWidth: 20,
+    strokeWidth: 40,
     strokeCap: "round"
 });
 
+//sets starting point to center divided by 10
 var start = view.center / [10, 1];
 for (var i = 0; i < points; i++)
     path.add(start + new Point(i * length, 0));
@@ -35,13 +38,9 @@ function onMouseMove (event) {
     path.smooth({ type: "continuous" });
 }  
 
-function onMouseDown(event) {
-    path.fullySelected = true;
-    path.strokeColor = getRandomColor();
-}
-
+//changes color when mouse is down using event
 function onMouseDown(event) {
     path.fullySelected = false;
+    path.closed = false;
     path.strokeColor = getRandomColor();
 }
-
