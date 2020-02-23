@@ -121,7 +121,7 @@ Ball.prototype = {
 		for (var i = 0; i < this.numSegment; i ++)
 			this.boundOffset[i] = this.boundOffsetBuff[i];
 	}
-};
+}
 
 //--------------------- main ---------------------
 

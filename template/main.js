@@ -94,5 +94,3 @@ function onMouseDrag(event) {
         path.position += event.delta;
     }
 }
-
-// Change for 
