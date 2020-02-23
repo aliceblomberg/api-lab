@@ -2,9 +2,9 @@
 var raster = new Raster ('photo.jpg');
 var loaded = false; 
 
-//When the page is loaded, the raster item is reverted
-//The function "onResize" is called 
-//
+/*When the page is loaded
+The function "onResize" is called 
+Then the photo is reverted to its normal state */
 raster.on('load', function() {
     loaded = true; 
     onResize();
@@ -13,11 +13,15 @@ raster.on('load', function() {
 //Make the raster invisible: 
 raster.visible = false; 
 
+//This code indicates what happens when the pointer is moved
+//the fifth line (line 24) indicates the number of pixels 
+//that can be targeted at a time 
+//so the more the number increases from 20, the more pixels it takes to unravel the photo
 var lastPos = view.center; 
 function moveHandler(event) {
     if (!loaded)
     return; 
-    if (lastPos.getDistance(event.point) < 20)
+    if (lastPos.getDistance(event.point) < 50)
     return; 
     lastPos = event.point; 
 
