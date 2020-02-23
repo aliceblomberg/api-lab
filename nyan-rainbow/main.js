@@ -1,19 +1,21 @@
 var mousePos = view.center + [view.bounds.width / 3, 100]; // Assigning the value of center point of the viewport and the point coordinates [x, y]
-var position = view.center;
+var framePosition = view.center;
 
-// Function that updates the frame
+var headGroup; // Variable for the head of the rainbow
+
+// Function that updates each frame
 function onFrame(event) {
 	framePosition += (mousePos - framePosition) / 10;
 	var vector = (view.center - framePosition) / 10;
 	moveStars(vector * 3);
-	// moveRainbow(vector, event);
+	moveRainbow(vector, event);
 }
 // Assign the mouse co-ordinates to mousePos on mousemove.
 function onMouseMove(event) {
 	mousePos = event.point;
 }
 
-// Function for the star background
+// Function for the moving star background
 var moveStars = new function() {
 	// The amount of stars (symbols) to be placed
 	var count = 50;
@@ -22,12 +24,10 @@ var moveStars = new function() {
 	var path = new Path.Circle({
 		center: [0, 0],
 		radius: 5,
-		fillColor: 'white',
-		strokeColor: 'black'
+		fillColor: 'white'
 	});
 
-	// Declaring the new symbol from the Path
-
+	// Declaring the path as a new symbol
 	var symbol = new Symbol(path);
 
 	// Place the instances of the symbol:
@@ -43,7 +43,8 @@ var moveStars = new function() {
 			vector: new Point({
 				angle: Math.random() * 360,
 				length: (i / count) * Math.random() / 5
-			})
+			}),
+			isHit: false //New property to check if the symbol has been hit by the rainbow 
 		};
 	}
 	// Function to keep every instance within view
@@ -70,7 +71,7 @@ var moveStars = new function() {
 		}
 
 		if (position.y < -itemBounds.height - 5) {
-			position.y = viewBounds.height
+			position.y = viewBounds.height;
 		}
 	}
 	// The return function that will be called each frame 
@@ -82,8 +83,19 @@ var moveStars = new function() {
 			var item = layer.children[i];
 			var size = item.bounds.size;
 			var length = vector.length / 10 * size.width / 10;
-			item.position += vector.normalize(length) + item.data.vector;
+
+			//Only move the symbol if it hasn't been hit
+			if (!item.data.isHit) {
+				item.position += vector.normalize(length) + item.data.vector;
+			}
 			keepInView(item);
+
+			//Checks if the rainbow headGroup hits any of the star items
+			if (headGroup) {
+				if (headGroup.intersects(item)) {
+					item.data.isHit = true;
+				}
+			}
 		}
 	};
 };
@@ -106,7 +118,7 @@ var moveRainbow = new function() {
 	When you transform a Group, its children are treated as a single unit without changing their relative positions. */
 	var group = new Group(paths);
 
-	var headGroup;
+
 	// Eye variables
 	var eyePosition = new Point();
 	var eyeFollow = (Point.random() - 0.5);
@@ -131,25 +143,22 @@ var moveRainbow = new function() {
 			radius: radius,
 			fillColor: 'black'
 		});
-		/* By default the item.scale(scale) function scales an item around its center point. If you want to scale around a specific position, you can pass the scale function an optional center point: item.scale(scale, point).
-		//Scaling and rotating the previous circle to make the sclera (white of the eye)  
-		// scale(percentage in decimal, center point)
+		/* Scaling and rotating the previous circle to make the sclera (white of the eye)  
+		ex: scale(percentage in decimal, center point) */
+
 		circle.scale(vector.length / 100, 1);
-		//Rotates by the degrees of the vector angle 
-		//around the circle center point
-		/* path.rotate(degrees, point) */
+
+		/*Rotates by the degrees of the vector angle around the circle center point
+		 ex: path.rotate(degrees, point) */
 		
 		circle.rotate(vector.angle, circle.center);
 		innerCircle = circle.clone(); 
 		innerCircle.scale(0.5);
 
 		// Color changes between white and black simulating blinking
-		// If the remainder of count (50) divided by the blinkTime is less than three OR the remainder of count divided by blinkTime + 5 is less than 3
-		// Fill innerCircle with black
-		// else fill it with black 
+	
 		innerCircle.fillColor = (count % blinkTime < 3) || (count % (blinkTime + 5) < 3) ? 'black' : 'white';
 
-		// If the remainder of count divded by blinkTime + 40 is 0, then set blinkTime to the rounded value of 40 + 200
 		if (count % (blinkTime + 40) == 0)
 			blinkTime = Math.round(Math.random() * 40) + 200;
 
@@ -163,9 +172,9 @@ var moveRainbow = new function() {
 		headGroup = new Group(circle, innerCircle, eye);
 	}
 
-	// Return function that is called on every frame, so the whole thing follows the mouse
+	// Returns function that is called on every frame, making the whole thing follow the mouse movement
 	return function(vector, event) {
-		var vector = (view.center - position) / 10; //Vector set by the direction of the mouse movement
+		var vector = (view.center - framePosition) / 50; //Vector set by the direction of the mouse movement
 
 		if (vector.length < 5)
 			vector.length = 5;
@@ -187,6 +196,8 @@ var moveRainbow = new function() {
 			var bottom = view.center + rotated.normalize(length + unitLength);
 			path.add(top);
 			path.insert(0, bottom);
+
+			// Ensures that the rainbow doesn't exceed 200 segments by removing segments from the first and last index
 			if (path.segments.length > 200) {
 				var index = Math.round(path.segments.length / 2);
 				path.segments[index].remove();
@@ -194,7 +205,7 @@ var moveRainbow = new function() {
 			}
 			path.smooth();
 		}
-		createHead(vector, event.count);
+		createHead(vector, event.count); //Creates the head and changes its size depending on how many times the mouse event has been fired
 	}
 }
 
