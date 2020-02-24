@@ -32,6 +32,7 @@ function createPaths() {
     };
 }
 
+// create new path item and add segments to it
 function createBlob(center, maxRadius, points) {
     var path = new Path();
     path.closed = true;
