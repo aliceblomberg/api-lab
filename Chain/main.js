@@ -8,39 +8,60 @@ function getRandomColor() {
     return color;
   }
 
+//create random number (to use for the stroke width)  
+  function getRandomNumber() {
+    return Math.random() * 25;
+  }
+//____________________________________________________________________
+
+
 //the amount of points in the path:
 var points = 50;
 
 //the distance between the points
-var length = 15;
+var length = 1;
 
 //creates an instance of Path(an object)
 var path = new Path({
     strokeColor: getRandomColor(),
-    strokeWidth: 40,
+    strokeWidth: getRandomNumber(),
     strokeCap: "round"
 });
 
-//sets starting point to center divided by 10
-var start = view.center / [10, 1];
-for (var i = 0; i < points; i++)
-    path.add(start + new Point(i * length, 0));
+//adds points to the path when dragging the mouse (drawing)
+tool.onMouseDrag = function(event) {
+    path.add(event.point);
+}
 
-function onMouseMove (event) {
-    path.firstSegment.point = event.point;
-    for (var i = 0; i < points - 1; i++) {
-        var segment = path.segments[i];
-        var nextSegment = segment.next;
-        var vector = segment.point - nextSegment.point;
-        vector.length = length;
-        nextSegment.point = segment.point - vector;
-    }
-    path.smooth({ type: "continuous" });
-}  
-
-//changes color when mouse is down using event
+//changes color when mouse is down 
 function onMouseDown(event) {
-    path.fullySelected = false;
-    path.closed = false;
-    path.strokeColor = getRandomColor();
+    if (path) {
+    path.selected = false;
+	}
+     path = new Path({
+        strokeColor: getRandomColor(),
+        strokeWidth: getRandomNumber(),
+        strokeCap: "round",
+    });
+}
+
+function onMouseUp(event) {
+	// When the mouse is released, simplify it:
+    path.simplify(100);
+}
+
+tool.onKeyDown = function(event) {
+  if (event.key == 'up') {
+      // Scale the path by 110%:
+      path.scale(1.2);
+
+      return false;
+  }
+
+  if (event.key == "down") {
+     // Scale the path down by 20%:
+    path.scale(0.8);
+
+    return false;
+  }
 }
