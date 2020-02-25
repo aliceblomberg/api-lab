@@ -9,6 +9,19 @@ This project was made as an assignment for the Prototyping course in Interaction
 
 Bad naming practice in examples, making it difficult to work with and understand! 
 
+```
+calcBounds: function(b) {
+  for (var i = 0; i < this.numSegment; i ++) {
+    var tp = this.getSidePoint(i);
+		var bLen = b.getBoundOffset(tp);
+		var td = tp.getDistance(b.point);
+		if (td < bLen) {
+			this.boundOffsetBuff[i] -= (bLen  - td) / 2;
+		}
+  }   
+}
+```
+
 ## Purpose/"Why the project is useful"?
 
 1. What is the project exploring?
