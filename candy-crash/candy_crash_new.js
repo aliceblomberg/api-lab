@@ -82,11 +82,18 @@ Ball.prototype = {
         // have the balls overlapped?
 		if (dist < this.radius + b.radius && dist != 0) {
 			var overlap = this.radius + b.radius - dist;
-            var direc = (this.point - b.point).normalize(overlap * 0.015);
+			var solidity = 0.01;
+            var direc = (this.point - b.point).normalize(overlap * solidity);
             
             // when overlapped, bounce
 			this.vector += direc;
 			b.vector -= direc;
+
+			// Make the balls move in horizontal direction.
+			this.vector.x = Math.abs(this.vector.x);
+			b.vector.x = Math.abs(b.vector.x);
+			this.vector.y *= 0.8;
+			b.vector.y *= 0.8;
 
             // make sure balls don't visually overlap "squish"
 			this.calcBounds(b);
@@ -126,7 +133,7 @@ Ball.prototype = {
 //--------------------- main ---------------------
 
 var balls = [];
-var numBalls = 18;
+var numBalls = 30;
 
 // Fills the balls array with random balls
 for (var i = 0; i < numBalls; i++) {
@@ -135,7 +142,7 @@ for (var i = 0; i < numBalls; i++) {
 		angle: 360 * Math.random(), // direction balls start at 0 - 360
 		length: Math.random() * 10  // speed 0 - 10
 	});
-	var radius = Math.random() * 60 + 60;  // 60- 120
+	var radius = Math.random() * 30 + 30;  // 30 - 60
 	balls.push(new Ball(radius, position, vector));
 }
 // paper automatically calls onFrame every frame
