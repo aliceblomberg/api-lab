@@ -1,4 +1,4 @@
-# Name of the example/tutorial
+# Round.rectangle
 ## Description
 This is an annotated example of [your example](https://paperjs.org/examples/yourexample). 
 Round rectangle is a graphic shape related to mouse cursor, it is a colorful round rectangle which you can move it wherever you want on the screen depending on the mouse position. 
@@ -13,4 +13,5 @@ It can be relevant to interaction design if someone has disabilities to identify
 It can be used also for technical games to make the design more colorful by using an appropriate shape for the game. 
 
 ## Contribution
-Sara Madwar
+Paper.js is distributed under the permissive MIT License Copyright (c) 2011, Juerg Lehni & Jonathan Puckey.
+The author of the original example is not provided, the extension is made by Sara Madwar.

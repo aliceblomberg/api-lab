@@ -1,4 +1,4 @@
-# Name of the example/tutorial
+# Hit-testing
 ## Description
 This is an annotated example of [your example](https://paperjs.org/examples/yourexample). 
 It called Hit-testing, it is a user-control process that the user can get interact with random shapes and with random colors. The user can select a shape and change its size, layout design and position.
@@ -19,4 +19,5 @@ Another way that Het-testing can be used when you want to create an interactive 
 Furthermore, this example makes me inspired to create more shapes or to draw many beautiful drawings, just for fun. There was actually one thing that makes the example hard to use for drawing, it is when you create a new segment point in the stroke of the shape you are not able to remove it then, so the user has to be careful when he wants to click on the segments to use it in the right way. 
 
 ## Contribution
-Sara Madwar
+Paper.js is distributed under the permissive MIT License Copyright (c) 2011, Juerg Lehni & Jonathan Puckey.
+The author of the original example is not provided, the extension is made by Sara Madwar.
