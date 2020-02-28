@@ -13,6 +13,7 @@ Candy-crash works with a combination of vector graphics and smoothing functions 
 Open `index.html` in your web browser. This will automatically load and run the edited example. To run the the original code, open `index.html` and change the file referenced by the script tag `candy_crash.js`.
 
 ## Contribution
+The author of the original example was not provided.
 Paper.js is distributed under the permissive MIT License
 Copyright (c) 2011, Juerg Lehni & Jonathan Puckey.
 
