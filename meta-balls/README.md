@@ -1,10 +1,7 @@
-# Name of the example/tutorial
+# Meta-balls
 ## Description
-This is an annotated example of [your example](https://paperjs.org/examples/yourexample). 
-
-## Reflection
-Why highlight this example? What is interesting about it? How can it be relevant for Interaction Design?
+This is an annotated example of [meta-balls](http://paperjs.org/examples/meta-balls/). 
 
 ## Contribution
-
-Who did the thing
+Ported from original Metaball script by SATO Hiroyuki
+commented by Viggo Hasselquist

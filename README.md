@@ -7,7 +7,6 @@ This project was made as an assignment for the Prototyping course in Interaction
 > Paper.js is an open source vector graphics scripting framework that runs on top of HTML5 Canvas. It is developed by Jürg Lehni & Joonathan Puckey, and distributed under the permissive MIT License. 
 >> <cite><a href="http://paperjs.org/about/"> Paper.js About Page</a></cite>
 
-Bad naming practice in examples, making it difficult to work with and understand! 
 
 ## Purpose/"Why the project is useful"?
 
@@ -15,6 +14,21 @@ Bad naming practice in examples, making it difficult to work with and understand
 2. Why is the library interesting for IxD?
 
 * Support for vector mathematics makes for simple creation of smooth graphic animations.
+
+Bad naming practice in examples, making it difficult to work with and understand! 
+
+```javascript
+calcBounds: function(b) {
+	for (var i = 0; i < this.numSegment; i ++) {
+		var tp = this.getSidePoint(i);
+		var bLen = b.getBoundOffset(tp);
+		var td = tp.getDistance(b.point);
+		if (td < bLen) {
+			this.boundOffsetBuff[i] -= (bLen  - td) / 2;
+		}
+	}   
+}
+```
 
 ## Usage ???
 

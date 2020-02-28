@@ -1,9 +1,7 @@
 # Name of the example/tutorial
 ## Description
-This is an annotated example of [your example](https://paperjs.org/examples/yourexample). 
+This is an annotated extended example of [Nyan Rainbow](https://paperjs.org/examples/nyan-rainbow) from the library Paper.js. It shows the built-in functionality of hit testing.
 
-## Reflection
-Why highlight this example? What is interesting about it? How can it be relevant for Interaction Design?
 
 ## Contribution
 

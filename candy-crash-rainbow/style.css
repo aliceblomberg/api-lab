@@ -1,0 +1,10 @@
+* {
+    margin: 0 auto;
+    overflow: hidden;
+    height: 100%;
+    background: black;
+}
+canvas[resize] {
+    height: 100%;
+    width: 100%;
+}

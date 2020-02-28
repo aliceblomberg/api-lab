@@ -1,10 +1,10 @@
 # Name of the example/tutorial
-## Description
-This is an annotated example of [your example](https://paperjs.org/examples/yourexample). 
+Future Splash
 
-## Reflection
-Why highlight this example? What is interesting about it? How can it be relevant for Interaction Design?
+## Description
+This is an annotated example of Future Splash (https://paperjs.org/examples/future-splash). 
 
 ## Contribution
-
-Who did the thing
+Code ported to Paper.js from http://the389.com/9/1/
+// with permission.
+commented by Aasa Whittleton.
