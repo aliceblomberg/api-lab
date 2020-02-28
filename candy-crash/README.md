@@ -15,6 +15,6 @@ Open `index.html` in your web browser. This will automatically load and run the 
 ## Contribution
 The author of the original example was not provided.
 Paper.js is distributed under the permissive MIT License
-Copyright (c) 2011, Juerg Lehni & Jonathan Puckey.
+Copyright &copy; 2011, Juerg Lehni & Jonathan Puckey.
 
 New example created by Aasa Whittleton and also distributed under the permissive MIT License.
