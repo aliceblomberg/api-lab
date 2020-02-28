@@ -2,7 +2,7 @@
 
 ## Description
 
-This project was made as an assignment for the Prototyping course in Interaction Design, where we chose to work with [Paper.js] to learn about how to use an API/Library.
+This project was made as an assignment for the Prototyping course in Interaction Design, where we chose to work with Paper.js to learn about how to use an API/Library.
 
 > Paper.js is an open source vector graphics scripting framework that runs on top of HTML5 Canvas. It is developed by Jürg Lehni & Joonathan Puckey, and distributed under the permissive MIT License.
 
