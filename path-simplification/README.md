@@ -9,4 +9,4 @@ I added some comments to make the code clearer and also added .colorfill method 
 Also, I made the stroke width thicker and increased the value of the .simplify method. 
 
 ## Who contributed
-All of the code is from the source for the example in paper.js. My contribution was modifying the comments and some values in the code.  
+All of the code is from the source for the example in Paper.js, developed by Jürg Lehni and Jonathan Puckey. My contribution was modifying the comments and some values in the code.  
